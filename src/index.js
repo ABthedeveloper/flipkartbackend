@@ -3,16 +3,17 @@ const env = require('dotenv')
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
 
 //Routes
-const userRoutes = require('./routes/user')
+const authRoutes = require('./routes/auth')
 
 //Constant
 env.config();
 
 //Middlewear
 app.use(bodyParser());
-app.use('/api',userRoutes)
+app.use('/api',authRoutes)
 
 
 //mongodb connection

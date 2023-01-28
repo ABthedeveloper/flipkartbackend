@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     firstName:{
@@ -38,7 +39,7 @@ const userSchema = new mongoose.Schema({
     role:{
         type: 'string',
         enum: ['admin', 'user'],
-        default: 'admin'
+        default: 'user'
     },
     contactNumber:{
         type: 'string',
@@ -46,5 +47,18 @@ const userSchema = new mongoose.Schema({
     profilePicture:{
         type: 'string',
     }
-});
-module.exports = mongoose.model('User');
+},
+ {timestamps: true}
+);
+
+// userSchema.virtual('password').set(function(password){
+//     this.hash_password = bcrypt.hashSync(password, 10); //here 10 is the salt
+// });
+
+// userSchema.methods = {
+//     authenticate : function(password){
+//         return bcrypt.compareSync(password,this.hash_password)
+//     }
+// }
+
+module.exports = mongoose.model('User',userSchema);
